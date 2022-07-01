@@ -34,38 +34,33 @@ const jobs = [
   }
 ];
 
-// core here
-function fetchPersonById(id) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (persons) {
-        resolve(persons.filter(item => item.id === id));
-      } else {
-        reject('Errore person id');
-      }
-    }, 1000);
-  })
-}
 
-function fetchJobById(id) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (jobs) {
-        resolve(jobs.filter(item => item.id === id));
-      } else {
-        reject('Errore job id');
-      }
-    }, 500);
-  })
+function fetchPersonById(id){
+return new Promise((resolve, reject) => {
+  setTimeout(() => {
+    if(id in persons){
+      resolve(persons.find(item => item.id === id))
+    } else {
+      reject(new Error('Questo id non è presente'));
+    }
+  }, 1000)
+});
 }
 
 
-async function result() {
-  let personPromise = await fetchPersonById(1);
-  console.log(personPromise);
-
-  let jobPromise = await fetchJobById(1);
-  console.log(jobPromise);
+function fetchJobById(id){
+return new Promise((resolve, reject) => {
+  setTimeout(() => {
+    if(id in jobs){
+      resolve(jobs.find(item => item.id === id))
+    } else {
+      reject(new Error('Questo id non è presente'));
+    }
+  }, 500)
+});
 }
 
-result();
+Promise.race([
+  fetchPersonById(2),
+  fetchJobById(2)
+]).then(console.log);
