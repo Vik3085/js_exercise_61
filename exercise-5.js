@@ -38,7 +38,7 @@ const jobs = [
 function fetchPersonById(id){
 return new Promise((resolve, reject) => {
   setTimeout(() => {
-    if(id in persons){
+    if(persons){
       resolve(persons.find(item => item.id === id))
     } else {
       reject(new Error('Questo id non è presente'));
@@ -51,7 +51,7 @@ return new Promise((resolve, reject) => {
 function fetchJobById(id){
 return new Promise((resolve, reject) => {
   setTimeout(() => {
-    if(id in jobs){
+    if(jobs){
       resolve(jobs.find(item => item.id === id))
     } else {
       reject(new Error('Questo id non è presente'));
